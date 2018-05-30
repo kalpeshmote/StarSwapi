@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Star Wars</string>
+    <string name="action_refresh">Refresh</string>
+
+    <string name="details_page_title">Details</string>
+    <string name="detail_page_name">Name</string>
+    <string name="detail_page_height">Height</string>
+    <string name="detail_page_mass">Mass</string>
+
+    <string name="detail_page_date_created">Date created</string>
+
+    <string name="retry">Retry</string>
+
+
+</resources>

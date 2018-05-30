@@ -1,0 +1,58 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/accent">
+
+    <include layout="@layout/toolbar"/>
+    <com.arkkgroup.starwars.customviews.DetailsPaperLayout
+        android:id="@+id/cardDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_major"
+        app:title="@string/details_page_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/spacing_major"
+            android:paddingLeft="@dimen/spacing_major"
+            android:paddingRight="@dimen/spacing_major">
+
+            <com.arkkgroup.starwars.customviews.DetailRowLayout
+                android:id="@+id/mName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_micro"
+                app:title="@string/detail_page_name" />
+
+            <com.arkkgroup.starwars.customviews.DetailRowLayout
+                android:id="@+id/mHeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_micro"
+                app:title="@string/detail_page_height" />
+
+            <com.arkkgroup.starwars.customviews.DetailRowLayout
+                android:id="@+id/mMass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_micro"
+                app:title="@string/detail_page_mass" />
+
+            <com.arkkgroup.starwars.customviews.DetailRowLayout
+                android:id="@+id/mDateCreated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_micro"
+                app:title="@string/detail_page_date_created" />
+
+        </LinearLayout>
+
+    </com.arkkgroup.starwars.customviews.DetailsPaperLayout>
+
+</LinearLayout>

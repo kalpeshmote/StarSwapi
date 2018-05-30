@@ -1,0 +1,162 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply from: '../qualitycheck/inspection/quality.gradle'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.arkkgroup.starwars"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "${applicationId}.runner.RxAndroidJUnitRunner"
+
+
+    }
+
+    signingConfigs {
+        // TODO Add your release keystore in /keystore folder
+        release {
+            storeFile file('keystore/release.keystore')
+            keyAlias 'alias'
+            storePassword "$System.env.APP_KEY"
+            keyPassword "$System.env.APP_KEY"
+        }
+
+        debug {
+            storeFile file('keystore/debug.keystore')
+            keyAlias 'androiddebugkey'
+            storePassword 'android'
+            keyPassword 'android'
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            versionNameSuffix " Debug"
+            debuggable true
+        }
+    }
+
+    sourceSets {
+        def commonTestDir = 'src/commonTest/java'
+        test {
+            java.srcDir commonTestDir
+        }
+        androidTest {
+            java.srcDir commonTestDir
+        }
+    }
+
+    lintOptions {
+        warning 'InvalidPackage'
+    }
+}
+
+kapt {
+    generateStubs = true
+}
+
+
+dependencies {
+
+
+    //Library Versions Declared
+    final SUPPORT_LIBRARY_VERSION = '27.0.2'
+    final MOCKITO_VERSION = '2.18.3'
+    final ESPRESSO_VERSION = '3.0.2'
+    final JUNIT_VERSION = '4.12'
+    final RUNNER_VERSION = '1.0.2'
+    final ARCHLIFECYCLE_VERSION = "1.0.0-alpha9"
+    final ARCH_ROOM_VESRION = "1.0.0-alpha5"
+    final FUEL_LIB_VERSION = "1.9.0"
+    final ANKO_VERSION = '0.10.4'
+
+
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+
+    //Android Support Libraries
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.android.support:support-v4:$SUPPORT_LIBRARY_VERSION"
+    implementation "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
+    implementation "com.android.support:cardview-v7:$SUPPORT_LIBRARY_VERSION"
+    implementation "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
+    implementation "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
+    implementation "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
+
+
+
+
+
+
+    //Android Testing Libraries
+    testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:$MOCKITO_VERSION"
+    testImplementation('org.robolectric:robolectric:3.0') {
+        exclude group: 'commons-logging', module: 'commons-logging'
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
+
+    androidTestImplementation "junit:junit:$JUNIT_VERSION"
+    androidTestImplementation "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
+    androidTestImplementation("com.android.support.test.espresso:espresso-contrib:$ESPRESSO_VERSION") {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$ESPRESSO_VERSION"
+    androidTestImplementation "com.android.support.test:runner:$RUNNER_VERSION"
+    androidTestImplementation "com.android.support.test:rules:$RUNNER_VERSION"
+    androidTestImplementation "org.mockito:mockito-core:$MOCKITO_VERSION"
+    testImplementation "junit:junit:$JUNIT_VERSION"
+    testImplementation "org.mockito:mockito-core:$MOCKITO_VERSION"
+    implementation 'com.google.dagger:dagger:2.14.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+
+
+
+
+
+
+    //LiveData and Lifecycle Libraries
+    implementation "android.arch.lifecycle:extensions:$ARCHLIFECYCLE_VERSION"
+    implementation "android.arch.persistence.room:runtime:$ARCH_ROOM_VESRION"
+    implementation "android.arch.persistence.room:rxjava2:$ARCH_ROOM_VESRION"
+    kapt "android.arch.lifecycle:common-java8:1.0.0"
+    kapt "android.arch.persistence.room:compiler:$ARCH_ROOM_VESRION"
+
+
+    //Fuel is the easiest HTTP networking library for Kotlin/Android.
+    implementation "com.github.kittinunf.fuel:fuel:$FUEL_LIB_VERSION"
+    implementation "com.github.kittinunf.fuel:fuel-android:$FUEL_LIB_VERSION"
+    implementation "com.github.kittinunf.fuel:fuel-rxjava:$FUEL_LIB_VERSION"
+    implementation "com.github.kittinunf.fuel:fuel-gson:$FUEL_LIB_VERSION"
+
+
+    //Java rx Library
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+
+
+    //Anko is a Kotlin library which makes Android application development faster and easier.
+    // It makes code clean and easy to read.
+    implementation "org.jetbrains.anko:anko-common:$ANKO_VERSION"
+    implementation "org.jetbrains.anko:anko-sqlite:$ANKO_VERSION"
+    implementation "org.jetbrains.anko:anko-coroutines:$ANKO_VERSION"
+}
